@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบสรุปค่า Subscription — มีนาคม 2569</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0D0D14;
+    --surface:   #13131F;
+    --card:      #191926;
+    --border:    #2A2A40;
+    --border-hi: #3D3D60;
+    --accent:    #7B6EF6;
+    --accent2:   #4ECDC4;
+    --gold:      #F5C842;
+    --green:     #4CAF7D;
+    --red:       #E05A5A;
+    --text:      #E8E8F0;
+    --muted:     #7878A0;
+    --subtle:    #3A3A58;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── background grid ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ─── Header ─── */
+  .header { margin-bottom: 48px; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+  .logo-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 4px;
+  }
+  .doc-meta { text-align: right; }
+  .doc-meta .doc-id { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+  .doc-meta .doc-date { font-size: 12px; color: var(--accent2); margin-top: 2px; }
+
+  h1 {
+    font-size: 28px; font-weight: 600; color: var(--text);
+    letter-spacing: -0.02em; line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  h1 span { color: var(--gold); }
+
+  .header-sub { font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
+  .header-sub span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); display: inline-block; }
+
+  /* ─── Stats bar ─── */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 20px;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+  }
+  .stat-card.gold::before { background: var(--gold); }
+  .stat-card.green::before { background: var(--green); }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .stat-val { font-size: 22px; font-weight: 600; color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+  .stat-val.gold { color: var(--gold); }
+  .stat-val.green { color: var(--green); }
+  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ─── Table ─── */
+  .section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .bill-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+
+  .bill-table thead tr {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-hi);
+  }
+  .bill-table thead th {
+    padding: 10px 14px; text-align: left;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); white-space: nowrap;
+  }
+  .bill-table thead th.right { text-align: right; }
+
+  .bill-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .bill-table tbody tr:hover { background: rgba(123,110,246,0.05); }
+
+  .bill-table td { padding: 16px 14px; vertical-align: top; }
+
+  .svc-name { font-weight: 600; font-size: 14px; color: var(--text); margin-bottom: 3px; display: flex; align-items: center; gap: 8px; }
+  .svc-plan { font-size: 11px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+
+  .purpose-text { font-size: 12px; color: #A0A0C0; line-height: 1.7; }
+  .purpose-text .tag {
+    display: inline-block; font-size: 10px; padding: 2px 7px;
+    border-radius: 3px; background: rgba(123,110,246,0.15); color: var(--accent);
+    border: 1px solid rgba(123,110,246,0.3); margin: 2px 2px 2px 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .invoice-cell { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); line-height: 1.8; }
+  .invoice-cell .inv-no { color: var(--accent2); }
+
+  .date-cell { font-size: 12px; color: var(--text); white-space: nowrap; }
+  .pay-cell { font-size: 11px; color: var(--muted); white-space: nowrap; font-family: 'IBM Plex Mono', monospace; }
+
+  .amount-cell { text-align: right; }
+  .amount-thb { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; color: var(--green); white-space: nowrap; }
+  .amount-usd { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* receipt link button */
+  .receipt-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 4px; text-decoration: none;
+    border: 1px solid var(--border-hi); color: var(--accent2);
+    background: rgba(78,205,196,0.06);
+    transition: all 0.15s; white-space: nowrap; margin-top: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .receipt-btn:hover { background: rgba(78,205,196,0.15); border-color: var(--accent2); }
+  .receipt-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+  .receipt-btn.screenshot {
+    color: var(--gold); border-color: rgba(245,200,66,0.3);
+    background: rgba(245,200,66,0.05);
+  }
+  .receipt-btn.screenshot:hover { background: rgba(245,200,66,0.12); border-color: var(--gold); }
+
+  .badge-pdf {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    background: rgba(76,175,125,0.15); color: var(--green);
+    border: 1px solid rgba(76,175,125,0.3);
+    font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;
+  }
+  .badge-ss {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    background: rgba(245,200,66,0.12); color: var(--gold);
+    border: 1px solid rgba(245,200,66,0.3);
+    font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;
+  }
+
+  /* ─── Total ─── */
+  .total-bar {
+    background: linear-gradient(135deg, #1A1A30, #1E1A38);
+    border: 1px solid var(--border-hi);
+    border-radius: 12px; padding: 24px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+    position: relative; overflow: hidden;
+  }
+  .total-bar::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .total-label-big { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .total-items { font-size: 12px; color: var(--subtle); }
+  .total-amount { text-align: right; }
+  .total-thb {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 34px; font-weight: 600; color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+  .total-period { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* ─── Notes ─── */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+  .note-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+  }
+  .note-card .note-title { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .note-card ul { list-style: none; }
+  .note-card ul li { font-size: 12px; color: #9090B8; padding: 2px 0; display: flex; gap: 8px; }
+  .note-card ul li::before { content: '—'; color: var(--subtle); flex-shrink: 0; }
+
+  /* ─── Footer ─── */
+  .footer { border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+  .footer-name { font-size: 12px; color: var(--muted); }
+  .footer-stamp {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--subtle);
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── Print ─── */
+  @media print {
+    body { background: #fff; color: #111; }
+    body::before { display: none; }
+    .receipt-btn, .stats { display: none; }
+    .bill-table thead tr { background: #f0f0f0; }
+    .bill-table tbody tr:hover { background: transparent; }
+    .svc-name { color: #111; }
+    .purpose-text { color: #333; }
+    .amount-thb { color: #1a7a4a; }
+    .total-bar { background: #f7f7f7; }
+    .total-thb { color: #b8860b; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <span class="logo-badge">💼 ใบเบิกค่าใช้จ่าย</span>
+      <div class="doc-meta">
+        <div class="doc-id">DOC-2026-03-SUB-001</div>
+        <div class="doc-date">มีนาคม 2569 (March 2026)</div>
+      </div>
+    </div>
+    <h1>สรุปค่า <span>Subscription</span><br>เพื่อการทำงาน</h1>
+    <div class="header-sub">
+      <span><span class="dot"></span>pimchanok naboon</span>
+      <span><span class="dot"></span>ตำแหน่ง: Graphic Designer</span>
+      <span><span class="dot"></span>k.pimchanoknaboon@gmail.com</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card gold">
+      <div class="stat-label">ยอดรวมทั้งหมด</div>
+      <div class="stat-val gold">฿3,590.21</div>
+      <div class="stat-sub">มีนาคม 2569</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">จำนวน Subscriptions</div>
+      <div class="stat-val">6 รายการ</div>
+      <div class="stat-sub">AI · Design · Video Tools</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">ใบเสร็จแนบ</div>
+      <div class="stat-val green">6 ไฟล์</div>
+      <div class="stat-sub">PDF 4 ไฟล์ · Screenshot 2 ไฟล์</div>
+    </div>
+  </div>
+
+  <!-- AI Tools -->
+  <div class="section-label">🤖 AI Tools</div>
+  <table class="bill-table">
+    <thead>
+      <tr>
+        <th style="width:180px">บริการ / แผน</th>
+        <th>วัตถุประสงค์การใช้งาน</th>
+        <th style="width:160px">Invoice / Receipt</th>
+        <th style="width:100px">วันที่</th>
+        <th style="width:110px">ชำระผ่าน</th>
+        <th class="right" style="width:110px">ยอด (THB)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="svc-name">🧠 Claude Pro <span class="badge-pdf">PDF</span></div>
+          <div class="svc-plan">Anthropic, PBC</div>
+          <a class="receipt-btn" href="receipts/Receipt-Claude-Pro.pdf" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            ดูใบเสร็จ PDF
+          </a>
+        </td>
+        <td>
+          <div class="purpose-text">
+            AI Assistant หลักสำหรับงานออกแบบ ช่วย prompt engineering, copywriting และจัดการ workflow<br>
+            <span class="tag">Canva MCP</span>
+            <span class="tag">Asana Integration</span>
+            <span class="tag">15 Brands</span>
+          </div>
+        </td>
+        <td class="invoice-cell"><span class="inv-no">LUVBAXAQ-0005</span><br>Receipt: 2025-5647-7960</td>
+        <td class="date-cell">5 มี.ค. 2569</td>
+        <td class="pay-cell">Visa ···· 8402</td>
+        <td class="amount-cell"><div class="amount-thb">฿637.20</div><div class="amount-usd">$20.00 USD</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="svc-name">⚡ SuperGrok <span class="badge-pdf">PDF</span></div>
+          <div class="svc-plan">xAI, LLC</div>
+          <a class="receipt-btn" href="receipts/Receipt-SuperGrok.pdf" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            ดูใบเสร็จ PDF
+          </a>
+        </td>
+        <td>
+          <div class="purpose-text">
+            AI Image Generation สำหรับงานออกแบบ สร้างภาพโปรโมชั่น casino brands ด้วย cinematic style<br>
+            <span class="tag">Image Gen</span>
+            <span class="tag">Brand Visuals</span>
+            <span class="tag">Grok 4</span>
+          </div>
+        </td>
+        <td class="invoice-cell"><span class="inv-no">L6DUX0BE-0001</span><br>Receipt: 2487-8084</td>
+        <td class="date-cell">16 มี.ค. 2569</td>
+        <td class="pay-cell">Mastercard ···· 7043</td>
+        <td class="amount-cell"><div class="amount-thb">฿999.00</div><div class="amount-usd">$30.00 USD</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="svc-name">🌐 Google AI Pro <span class="badge-ss">Screenshot</span></div>
+          <div class="svc-plan">Google One · Gemini Advanced</div>
+          <a class="receipt-btn screenshot" href="receipts/Screenshot-Google-AI-Pro.png" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            ดู Screenshot
+          </a>
+        </td>
+        <td>
+          <div class="purpose-text">
+            AI Research & Deep Search หา reference งานออกแบบ พร้อม Google Drive 2TB สำหรับจัดเก็บไฟล์งาน<br>
+            <span class="tag">Deep Research</span>
+            <span class="tag">Drive 2TB</span>
+            <span class="tag">Gemini Advanced</span>
+          </div>
+        </td>
+        <td class="invoice-cell"><span class="inv-no">Google One</span><br>ยืนยันจาก Account</td>
+        <td class="date-cell">13 มี.ค. 2569</td>
+        <td class="pay-cell">Visa ···· 8402</td>
+        <td class="amount-cell"><div class="amount-thb">฿750.00</div><div class="amount-usd">$19.99 USD</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Design Tools -->
+  <div class="section-label">🎨 Design &amp; Asset Tools</div>
+  <table class="bill-table">
+    <thead>
+      <tr>
+        <th style="width:180px">บริการ / แผน</th>
+        <th>วัตถุประสงค์การใช้งาน</th>
+        <th style="width:160px">Invoice / Receipt</th>
+        <th style="width:100px">วันที่</th>
+        <th style="width:110px">ชำระผ่าน</th>
+        <th class="right" style="width:110px">ยอด (THB)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="svc-name">🖌️ Canva Business <span class="badge-pdf">PDF</span></div>
+          <div class="svc-plan">Canva Pty Ltd</div>
+          <a class="receipt-btn" href="receipts/Invoice-Canva-Business.pdf" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            ดู Invoice PDF
+          </a>
+        </td>
+        <td>
+          <div class="purpose-text">
+            โปรแกรมออกแบบกราฟิกหลัก สร้าง Ad Images, Banners, Rich Menu ด้วย Bulk Create สำหรับ 15 casino brands<br>
+            <span class="tag">Bulk Create</span>
+            <span class="tag">Brand Kit × 15</span>
+            <span class="tag">Rich Menu</span>
+            <span class="tag">Web Slider</span>
+          </div>
+        </td>
+        <td class="invoice-cell"><span class="inv-no">04806-41917691-1</span><br>VAT รวมแล้ว 7%</td>
+        <td class="date-cell">28 ก.พ. 2569</td>
+        <td class="pay-cell">THB Direct</td>
+        <td class="amount-cell"><div class="amount-thb">฿150.00</div><div class="amount-usd">รวม VAT</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="svc-name">🗂️ Envato Elements <span class="badge-pdf">PDF</span></div>
+          <div class="svc-plan">Core Student Monthly</div>
+          <a class="receipt-btn" href="receipts/Receipt-Envato-Elements.pdf" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            ดูใบเสร็จ PDF
+          </a>
+        </td>
+        <td>
+          <div class="purpose-text">
+            คลัง Template และ Stock Assets สำเร็จรูป ใช้เป็น base ในการออกแบบ ลดเวลาทำงานต่อชิ้นงาน<br>
+            <span class="tag">Stock Templates</span>
+            <span class="tag">Unlimited DL</span>
+            <span class="tag">15 Brands</span>
+          </div>
+        </td>
+        <td class="invoice-cell"><span class="inv-no">20534997</span><br>Mastercard ···· 7043</td>
+        <td class="date-cell">15 มี.ค. 2569</td>
+        <td class="pay-cell">Mastercard ···· 7043</td>
+        <td class="amount-cell"><div class="amount-thb">฿765.01</div><div class="amount-usd">$23.00 USD</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Video Tools -->
+  <div class="section-label">🎬 Video Tools</div>
+  <table class="bill-table">
+    <thead>
+      <tr>
+        <th style="width:180px">บริการ / แผน</th>
+        <th>วัตถุประสงค์การใช้งาน</th>
+        <th style="width:160px">Invoice / Receipt</th>
+        <th style="width:100px">วันที่</th>
+        <th style="width:110px">ชำระผ่าน</th>
+        <th class="right" style="width:110px">ยอด (THB)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="svc-name">✂️ CapCut Pro <span class="badge-ss">Screenshot</span></div>
+          <div class="svc-plan">Apple App Store</div>
+          <a class="receipt-btn screenshot" href="receipts/Screenshot-CapCut-Apple.png" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            ดู Apple Receipt
+          </a>
+        </td>
+        <td>
+          <div class="purpose-text">
+            ตัดต่อวิดีโอสำหรับงาน Promotional Content สร้าง short clip และ loop animation สำหรับ casino brand<br>
+            <span class="tag">Video Edit</span>
+            <span class="tag">Loop Animation</span>
+            <span class="tag">4K Export</span>
+          </div>
+        </td>
+        <td class="invoice-cell"><span class="inv-no">ML0J0W7Q6D</span><br>Doc: 838106277999</td>
+        <td class="date-cell">15 มี.ค. 2569</td>
+        <td class="pay-cell">Visa ···· 8402<br>(Apple)</td>
+        <td class="amount-cell"><div class="amount-thb">฿289.00</div><div class="amount-usd">Apple THB</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Total -->
+  <div class="total-bar">
+    <div>
+      <div class="total-label-big">ยอดรวมค่าใช้จ่ายทั้งหมด</div>
+      <div class="total-items">6 รายการ · มีนาคม 2569 · ยืนยันจากใบเสร็จจริง</div>
+    </div>
+    <div class="total-amount">
+      <div class="total-thb">฿3,590.21</div>
+      <div class="total-period">≈ $110.59 USD</div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes-grid">
+    <div class="note-card">
+      <div class="note-title">📎 หลักฐานแนบ</div>
+      <ul>
+        <li>Receipt-Claude-Pro.pdf (Anthropic)</li>
+        <li>Receipt-SuperGrok.pdf (xAI)</li>
+        <li>Invoice-Canva-Business.pdf (Canva)</li>
+        <li>Receipt-Envato-Elements.pdf (Envato)</li>
+        <li>Screenshot-Google-AI-Pro.png</li>
+        <li>Screenshot-CapCut-Apple.png</li>
+      </ul>
+    </div>
+    <div class="note-card">
+      <div class="note-title">📌 หมายเหตุ</div>
+      <ul>
+        <li>ค่าใช้จ่ายทั้งหมดเพื่อการทำงาน Graphic Design</li>
+        <li>ใช้สำหรับ 15 casino brands</li>
+        <li>USD แปลงตามอัตราที่บัตรตัดจริง</li>
+        <li>Google AI Pro และ CapCut ไม่มี PDF ใบเสร็จ</li>
+        <li>สามารถขอใบกำกับภาษีได้จาก Canva เท่านั้น</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-name">pimchanok naboon · k.pimchanoknaboon@gmail.com</div>
+    <div class="footer-stamp">DOC-2026-03-SUB-001 · Generated March 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
