@@ -10,7 +10,7 @@
 :root{
   color-scheme: light only;
 
-–bg:#E8E8EE;
+–bg:#DFE0E8;
 –s1:rgba(255,255,255,0.8);
 –s2:rgba(163,162,180,0.45);
 –text:#4A4A6A;
@@ -19,9 +19,9 @@
 –green:#4CAF7D;
 –blue:#4A90D9;
 –radius:18px;
-–neu-out: 6px 6px 14px rgba(163,162,180,0.5), -4px -4px 10px rgba(255,255,255,0.85);
-–neu-in:  inset 3px 3px 8px rgba(163,162,180,0.45), inset -3px -3px 8px rgba(255,255,255,0.8);
-–neu-btn: 3px 3px 8px rgba(163,162,180,0.5), -2px -2px 6px rgba(255,255,255,0.85);
+–neu-out: 7px 7px 16px rgba(140,138,165,0.65), -5px -5px 12px rgba(255,255,255,0.95);
+–neu-in:  inset 4px 4px 10px rgba(140,138,165,0.55), inset -4px -4px 10px rgba(255,255,255,0.9);
+–neu-btn: 4px 4px 10px rgba(140,138,165,0.6), -3px -3px 8px rgba(255,255,255,0.9);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{
@@ -185,7 +185,7 @@ box-shadow:var(–neu-out);
 
 @media (prefers-color-scheme: dark) {
 :root {
-–bg:#E8E8EE !important;
+–bg:#DFE0E8 !important;
 –s1:rgba(255,255,255,0.8) !important;
 –s2:rgba(163,162,180,0.45) !important;
 –text:#4A4A6A !important;
@@ -193,17 +193,32 @@ box-shadow:var(–neu-out);
 –accent:#7B6EF5 !important;
 –green:#4CAF7D !important;
 –blue:#4A90D9 !important;
-–neu-out: 6px 6px 14px rgba(163,162,180,0.5), -4px -4px 10px rgba(255,255,255,0.85) !important;
-–neu-in:  inset 3px 3px 8px rgba(163,162,180,0.45), inset -3px -3px 8px rgba(255,255,255,0.8) !important;
-–neu-btn: 3px 3px 8px rgba(163,162,180,0.5), -2px -2px 6px rgba(255,255,255,0.85) !important;
+–neu-out: 7px 7px 16px rgba(140,138,165,0.65), -5px -5px 12px rgba(255,255,255,0.95) !important;
+–neu-in:  inset 4px 4px 10px rgba(140,138,165,0.55), inset -4px -4px 10px rgba(255,255,255,0.9) !important;
+–neu-btn: 4px 4px 10px rgba(140,138,165,0.6), -3px -3px 8px rgba(255,255,255,0.9) !important;
 }
 body { background:#E8E8EE !important; color:#4A4A6A !important; }
-.card, .hero, .total-block, .notes, .meta-box, .bullets, .r-block, .dl-btn, .chip, .card-icon-wrap {
-background:#E8E8EE !important;
+.card, .hero, .total-block, .notes {
+background:#F0F0F6 !important;
+}
+.meta-box, .bullets, .r-block, .dl-btn, .chip, .card-icon-wrap {
+background:#DFE0E8 !important;
 }
 .card-name, .card-amt, .total-val, .hero-amt, .topbar-title { color:#4A4A6A !important; }
 .card-sub, .hero-lbl, .sec-label, .mk, .muted, .notes-title, .r-title, .topbar-sub { color:#9090A8 !important; }
 .mv { color:#4A4A6A !important; }
+}
+
+/* card surface สว่างกว่า bg ทำให้เงานูนเห็นชัด */
+.card, .hero, .total-block, .notes, .card-main, .card-row {
+background: #F0F0F6 !important;
+}
+.detail, .detail-body, .bullets, .meta-box, .r-block,
+.chip, .card-icon-wrap {
+background: #DFE0E8 !important;
+}
+.dl-btn {
+background: #E8E8F0 !important;
 }
 </style>
 
