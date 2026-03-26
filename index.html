@@ -3,31 +3,34 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="light only">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Subscription Recipe — AO</title>
 <style>
 :root{
-  --bg:#E8E8EE;
-  --s1:rgba(255,255,255,0.8);
-  --s2:rgba(163,162,180,0.45);
-  --text:#4A4A6A;
-  --muted:#9090A8;
-  --accent:#7B6EF5;
-  --green:#4CAF7D;
-  --blue:#4A90D9;
-  --radius:18px;
-  --neu-out: 6px 6px 14px rgba(163,162,180,0.5), -4px -4px 10px rgba(255,255,255,0.85);
-  --neu-in:  inset 3px 3px 8px rgba(163,162,180,0.45), inset -3px -3px 8px rgba(255,255,255,0.8);
-  --neu-btn: 3px 3px 8px rgba(163,162,180,0.5), -2px -2px 6px rgba(255,255,255,0.85);
+  color-scheme: light only;
+
+–bg:#E8E8EE;
+–s1:rgba(255,255,255,0.8);
+–s2:rgba(163,162,180,0.45);
+–text:#4A4A6A;
+–muted:#9090A8;
+–accent:#7B6EF5;
+–green:#4CAF7D;
+–blue:#4A90D9;
+–radius:18px;
+–neu-out: 6px 6px 14px rgba(163,162,180,0.5), -4px -4px 10px rgba(255,255,255,0.85);
+–neu-in:  inset 3px 3px 8px rgba(163,162,180,0.45), inset -3px -3px 8px rgba(255,255,255,0.8);
+–neu-btn: 3px 3px 8px rgba(163,162,180,0.5), -2px -2px 6px rgba(255,255,255,0.85);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;
-  font-size:15px;line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
+background:#E8E8EE !important;
+color:var(–text);
+font-family:-apple-system,BlinkMacSystemFont,‘SF Pro Text’,‘Helvetica Neue’,Arial,sans-serif;
+font-size:15px;line-height:1.5;
+-webkit-font-smoothing:antialiased;
+min-height:100vh;
 }
 .page{max-width:430px;margin:0 auto;padding:0 0 56px}
 
@@ -35,7 +38,7 @@ body{
 .topbar{
 padding:52px 20px 16px;
 position:sticky;top:0;z-index:50;
-background:var(–bg);
+background:#E8E8EE !important;
 }
 .topbar-title{
 font-size:22px;font-weight:800;
@@ -46,7 +49,7 @@ letter-spacing:-.3px;color:var(–text);
 /* ── hero ── */
 .hero{
 margin:4px 16px 0;
-background:var(–bg);
+background:#E8E8EE !important;
 border-radius:var(–radius);
 padding:22px 22px;
 box-shadow:var(–neu-out);
@@ -56,7 +59,7 @@ box-shadow:var(–neu-out);
 .hero-chips{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .chip{
 font-size:11px;font-weight:600;color:var(–muted);
-background:var(–bg);border-radius:20px;padding:5px 11px;
+background:#E8E8EE !important;border-radius:20px;padding:5px 11px;
 box-shadow:var(–neu-btn);
 }
 
@@ -70,7 +73,7 @@ text-transform:uppercase;color:var(–muted);
 /* ── card ── */
 .card{
 margin:0 16px 12px;
-background:var(–bg);
+background:#E8E8EE !important;
 border-radius:var(–radius);
 box-shadow:var(–neu-out);
 overflow:hidden;
@@ -86,7 +89,7 @@ padding:14px 16px;cursor:pointer;
 
 .card-icon-wrap{
 width:46px;height:46px;border-radius:13px;
-background:var(–bg);
+background:#E8E8EE !important;
 box-shadow:var(–neu-btn);
 display:flex;align-items:center;justify-content:center;
 flex-shrink:0;transition:box-shadow .15s;
@@ -110,7 +113,7 @@ flex-shrink:0;transition:box-shadow .15s;
 /* bullets */
 .bullets{
 list-style:none;
-background:var(–bg);
+background:#E8E8EE !important;
 border-radius:14px;
 padding:12px 14px;
 box-shadow:var(–neu-in);
@@ -126,7 +129,7 @@ display:flex;gap:8px;align-items:flex-start;line-height:1.5;
 
 /* meta */
 .meta-box{
-background:var(–bg);border-radius:14px;
+background:#E8E8EE !important;border-radius:14px;
 box-shadow:var(–neu-in);
 margin-bottom:12px;overflow:hidden;
 }
@@ -148,7 +151,7 @@ display:flex;align-items:center;gap:8px;
 padding:11px 14px;text-decoration:none;font-size:13px;font-weight:700;
 margin:8px;border-radius:12px;
 box-shadow:var(–neu-btn);
-background:var(–bg);
+background:#E8E8EE !important;
 transition:box-shadow .15s;
 }
 .dl-btn:active{box-shadow:var(–neu-in)}
@@ -161,7 +164,7 @@ transition:box-shadow .15s;
 /* total */
 .total-block{
 margin:8px 16px 0;
-background:var(–bg);border-radius:var(–radius);
+background:#E8E8EE !important;border-radius:var(–radius);
 padding:16px 20px;
 box-shadow:var(–neu-out);
 display:flex;justify-content:space-between;align-items:center;
@@ -172,13 +175,36 @@ display:flex;justify-content:space-between;align-items:center;
 /* notes */
 .notes{
 margin:12px 16px 0;
-background:var(–bg);border-radius:var(–radius);
+background:#E8E8EE !important;border-radius:var(–radius);
 padding:14px 16px;
 box-shadow:var(–neu-out);
 }
 .notes-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
 .notes li{font-size:12px;color:var(–muted);list-style:none;padding:3px 0;display:flex;gap:8px}
 .notes li::before{content:”·”;color:var(–accent);font-size:18px;line-height:1.1}
+
+@media (prefers-color-scheme: dark) {
+:root {
+–bg:#E8E8EE !important;
+–s1:rgba(255,255,255,0.8) !important;
+–s2:rgba(163,162,180,0.45) !important;
+–text:#4A4A6A !important;
+–muted:#9090A8 !important;
+–accent:#7B6EF5 !important;
+–green:#4CAF7D !important;
+–blue:#4A90D9 !important;
+–neu-out: 6px 6px 14px rgba(163,162,180,0.5), -4px -4px 10px rgba(255,255,255,0.85) !important;
+–neu-in:  inset 3px 3px 8px rgba(163,162,180,0.45), inset -3px -3px 8px rgba(255,255,255,0.8) !important;
+–neu-btn: 3px 3px 8px rgba(163,162,180,0.5), -2px -2px 6px rgba(255,255,255,0.85) !important;
+}
+body { background:#E8E8EE !important; color:#4A4A6A !important; }
+.card, .hero, .total-block, .notes, .meta-box, .bullets, .r-block, .dl-btn, .chip, .card-icon-wrap {
+background:#E8E8EE !important;
+}
+.card-name, .card-amt, .total-val, .hero-amt, .topbar-title { color:#4A4A6A !important; }
+.card-sub, .hero-lbl, .sec-label, .mk, .muted, .notes-title, .r-title, .topbar-sub { color:#9090A8 !important; }
+.mv { color:#4A4A6A !important; }
+}
 </style>
 
 </head>
